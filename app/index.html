@@ -72,7 +72,7 @@
                         <a href="/" class="navbar-brand logo"><img width="100%" src="https://bitbucket.org/favicon.ico"/></a>
                     </div>
                     <nav class="collapse navbar-collapse" role="navigation">
-                        <form class="navbar-form navbar-left">
+                        <form id="form" class="navbar-form navbar-left">
                             <div class="input-group input-group-sm" style="max-width:360px;">
                                 <input type="text" class="form-control" placeholder="Username" name="username" id="username">
                                 <div class="input-group-addon">
@@ -90,15 +90,15 @@
                                 <button id="go-auth" class="btn btn-default">Go</button>
                             </div>
                         </form>
-                        <ul class="nav navbar-nav">
+                        <ul id="mainnav" style="display: none" class="nav navbar-nav">
                             <li>
-                                <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
+                                <a href="#"><img id="avatar" src="#"/> <span id="display_name"></span></a>
                             </li>
                             <li>
-                                <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
+                                <a href="#"><span class="badge" id="issue_count">45</span> issues</a>
                             </li>
                             <li>
-                                <a href="#"><span class="badge">badge</span></a>
+                                <a href="#"><i class="glyphicon glyphicon-refresh"></i></a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -130,10 +130,9 @@
                                     <small>Choose issues to change</small>
                                 </h3>
 
+                                <br/><br/>
+
                                 <table id="issues-table" class="table table-hover">
-                                    <legend>
-                                        No issues right now
-                                    </legend>
                                     <thead>
                                         <tr>
                                             <th>&nbsp;</th>
@@ -143,7 +142,11 @@
                                             <th>Milestone</th>
                                         </tr>
                                     </thead>
-                                    <tbody/>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="5" class="text-align-center"><i>No issues to show</i></td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

@@ -20,10 +20,19 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
                 'Authorization' : 'Basic ' + hash
             },
             success : function (data, status, xhr) {
-                console.log(data);
                 session.basicAuth = { 'Authorization' : 'Basic ' + hash }
                 session.user = data.user;
-                $('#user-icon').html('<img src="' + session.user.avatar + '" width="100%"/>');
+
+                sessionStorage['bitbucket-issues-plus_session'] = JSON.stringify(session);
+
+                $('#display_name').html(session.user.display_name);
+                $('#issue_count').html(data.length);
+                $('#avatar').attr('src', session.user.avatar);
+
+                $('#form').hide();
+                $('#mainnav').show();
+
+                refreshTable();
             },
             error : function (err) {
                 console.error(err);
@@ -31,24 +40,41 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         });
     });
 
+    if( sessionStorage['bitbucket-issues-plus_session'] !== undefined ){
+        session = JSON.parse(sessionStorage['bitbucket-issues-plus_session']);
+        $('#display_name').html(session.user.display_name);
+        $('#issue_count').html('N/A');
+        $('#avatar').attr('src', session.user.avatar);
 
-    //$.ajax({
-    //    success : function (data, status, xhr) {
-    //        var table = "";
-    //        for( var i in data.issues ){
-    //            var issue = data.issues[i];
-    //            table +=
-    //                '<tr>' +
-    //                    '<td>' + issue.priority + '</td>' +
-    //                    '<td>' + issue.title + '</td>' +
-    //                    '<td>' + issue.metadata.kind + '</td>' +
-    //                    '<td>' + issue.status + '</td>' +
-    //                    '<td>' + issue.metadata.milestone + '</td>' +
-    //                '</tr>\n';
-    //        }
-    //
-    //        $('#issues-table tbody').html(table);
-    //    }
-    //});
+        $('#form').hide();
+        $('#mainnav').show();
+
+        refreshTable();
+    }
 
 });
+
+function refreshTable(){
+    $.ajax({
+        url: 'https://api.bitbucket.org/1.0/repositories/trestini/vlote/issues',
+        method : 'GET',
+        headers: session.basicAuth,
+        success : function (data, status, xhr) {
+            var table = "";
+            for( var i in data.issues ){
+                var issue = data.issues[i];
+                table +=
+                    '<tr>' +
+                    '<td>' + issue.priority + '</td>' +
+                    '<td>' + issue.title + '</td>' +
+                    '<td>' + issue.metadata.kind + '</td>' +
+                    '<td>' + issue.status + '</td>' +
+                    '<td>' + issue.metadata.milestone + '</td>' +
+                    '</tr>\n';
+            }
+
+            $('#issues-table tbody').html(table);
+        }
+    });
+
+}
