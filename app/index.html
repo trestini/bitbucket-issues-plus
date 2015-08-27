@@ -31,18 +31,21 @@
             <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
 
                 <ul class="nav">
-                    <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                    <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i
+                        class="glyphicon glyphicon-chevron-right"></i></a></li>
                 </ul>
 
                 <ul class="nav hidden-xs" id="lg-menu">
-                    <li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> Featured</a></li>
+                    <li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> Featured</a>
+                    </li>
                     <li><a href="#stories"><i class="glyphicon glyphicon-list"></i> Stories</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-paperclip"></i> Saved</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-refresh"></i> Refresh</a></li>
                 </ul>
                 <ul class="list-unstyled hidden-xs" id="sidebar-footer">
                     <li>
-                        <a href="http://www.bootply.com"><h3>Bootstrap</h3> <i class="glyphicon glyphicon-heart-empty"></i> Bootply</a>
+                        <a href="http://www.bootply.com"><h3>Bootstrap</h3> <i
+                            class="glyphicon glyphicon-heart-empty"></i> Bootply</a>
                     </li>
                 </ul>
 
@@ -63,24 +66,30 @@
                 <!-- top nav -->
                 <div class="navbar navbar-blue navbar-static-top">
                     <div class="navbar-header">
-                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse"
+                                data-target=".navbar-collapse">
                             <span class="sr-only">Toggle</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="/" class="navbar-brand logo"><img width="100%" src="https://bitbucket.org/favicon.ico"/></a>
+                        <a href="/" class="navbar-brand logo"><img width="100%"
+                                                                   src="https://bitbucket.org/favicon.ico"/></a>
                     </div>
                     <nav class="collapse navbar-collapse" role="navigation">
                         <form id="form" class="navbar-form navbar-left">
                             <div class="input-group input-group-sm" style="max-width:360px;">
-                                <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+                                <input type="text" class="form-control" placeholder="Username" name="username"
+                                       id="username">
+
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
                             </div>
                             <div class="input-group input-group-sm" style="max-width:360px;">
-                                <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                                <input type="password" class="form-control" placeholder="Password" name="password"
+                                       id="password">
+
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-lock"></i>
                                 </div>
@@ -103,7 +112,8 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" id="user-icon" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 20px">
+                                <a href="#" id="user-icon" class="dropdown-toggle" data-toggle="dropdown"
+                                   style="margin-right: 20px">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -130,22 +140,26 @@
                                     <small>Choose issues to change</small>
                                 </h3>
 
+                                <br/>
+
+                                <button id="edit" class="btn btn-primary">Edit</button>
+
                                 <br/><br/>
 
-                                <table id="issues-table" class="table table-hover">
+                                <table id="issues-table" class="table">
                                     <thead>
-                                        <tr>
-                                            <th>&nbsp;</th>
-                                            <th>Description</th>
-                                            <th>Type</th>
-                                            <th>Status</th>
-                                            <th>Milestone</th>
-                                        </tr>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>Description</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Milestone</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td colspan="5" class="text-align-center"><i>No issues to show</i></td>
-                                        </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-align-center"><i>No issues to show</i></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -154,7 +168,11 @@
 
                         <div class="row" id="footer">
                             <div class="col-sm-6">
-                                <a href="#">Twitter</a> <small class="text-muted">|</small> <a href="#">Facebook</a> <small class="text-muted">|</small> <a href="#">Google+</a>
+                                <a href="#">Twitter</a>
+                                <small class="text-muted">|</small>
+                                <a href="#">Facebook</a>
+                                <small class="text-muted">|</small>
+                                <a href="#">Google+</a>
                             </div>
                             <div class="col-sm-6">
                                 <p>
@@ -174,8 +192,10 @@
                         <hr>
 
 
-                    </div><!-- /col-9 -->
-                </div><!-- /padding -->
+                    </div>
+                    <!-- /col-9 -->
+                </div>
+                <!-- /padding -->
             </div>
             <!-- /main -->
 
@@ -185,24 +205,44 @@
 
 
 <!--post modal-->
-<div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Update Status
+                Edit issue
             </div>
             <div class="modal-body">
                 <form class="form center-block">
                     <div class="form-group">
-                        <textarea class="form-control input-lg" autofocus="" placeholder="What do you want to share?"></textarea>
+                        <label for="components">Components</label>
+                        <select name="components" id="components">
+                            <option value="none">No value</option>
+                            <option value="Component 1">Component 1</option>
+                            <option value="Component 2">Component 2</option>
+                            <option value="Component 3">Component 3</option>
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label for="kind">Kind</label>
+                        <select name="kind" id="kind">
+                            <option value="none">No value</option>
+                            <option value="Bug">Bug</option>
+                            <option value="Enhancement">Enhancement</option>
+                            <option value="Task">Task</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>
             <div class="modal-footer">
                 <div>
                     <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Post</button>
-                    <ul class="pull-left list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li></ul>
+                    <ul class="pull-left list-inline">
+                        <li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li>
+                        <li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li>
+                        <li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>

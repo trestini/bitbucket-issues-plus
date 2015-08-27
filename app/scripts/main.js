@@ -11,6 +11,8 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         $('#btnShow').toggle();
     });
 
+    $('')
+
     $('#go-auth').click(function (e) {
         e.preventDefault();
         var hash = btoa($('#username').val() + ':' + $('#password').val());
@@ -52,6 +54,10 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         refreshTable();
     }
 
+    $('#edit').click(function () {
+        $('#editModal').modal();
+    });
+
 });
 
 function refreshTable(){
@@ -63,9 +69,30 @@ function refreshTable(){
             var table = "";
             for( var i in data.issues ){
                 var issue = data.issues[i];
+
+                var priorityIcon = "glyphicon ";
+
+                switch (issue.priority){
+                    case "trivial":
+                        priorityIcon += "glyphicon-thumbs-up text-color-black";
+                        break;
+                    case "minor":
+                        priorityIcon += "glyphicon-arrow-down text-color-black";
+                        break;
+                    case "major":
+                        priorityIcon += "glyphicon-arrow-up text-color-black";
+                        break;
+                    case "critical":
+                        priorityIcon += "glyphicon-warning-sign text-color-yellow";
+                        break;
+                    case "blocker":
+                        priorityIcon += "glyphicon-ban-circle text-color-red";
+                        break;
+                }
+
                 table +=
-                    '<tr>' +
-                    '<td>' + issue.priority + '</td>' +
+                    '<tr data-id="' + issue.local_id + '" class="clickable">' +
+                    '<td><i class="' + priorityIcon + '"></i></td>' +
                     '<td>' + issue.title + '</td>' +
                     '<td>' + issue.metadata.kind + '</td>' +
                     '<td>' + issue.status + '</td>' +
@@ -74,6 +101,15 @@ function refreshTable(){
             }
 
             $('#issues-table tbody').html(table);
+
+            $('tr.clickable').click(function () {
+                var tr = $(this);
+                var isSelected = tr.attr('selected');
+                tr.css('background-color', (isSelected ? '' : '#d1fbff') );
+                tr.attr('selected', !isSelected);
+
+            });
+
         }
     });
 
