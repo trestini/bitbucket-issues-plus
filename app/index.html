@@ -221,36 +221,34 @@
                 Edit issue
             </div>
             <div class="modal-body">
-                <form class="form center-block">
-                    <div class="form-group">
-                        <label for="components">Components</label>
-                        <select name="components" id="components">
-                            <option value="none">No value</option>
-                            <option value="Component 1">Component 1</option>
-                            <option value="Component 2">Component 2</option>
-                            <option value="Component 3">Component 3</option>
-                        </select>
+                <div class="row">
+                    <div class="column-lg-12">
+                        <form class="form center-block">
+                            <div class="form-group">
+                                <label for="components">Components</label>
+                                <select name="components" id="components">
+                                    <option value="none">No value</option>
+                                    <option value="Component 1">Component 1</option>
+                                    <option value="Component 2">Component 2</option>
+                                    <option value="Component 3">Component 3</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="kind">Kind</label>
+                                <select name="kind" id="kind">
+                                    <option value="none">No value</option>
+                                    <option value="Bug">Bug</option>
+                                    <option value="Enhancement">Enhancement</option>
+                                    <option value="Task">Task</option>
+                                </select>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="kind">Kind</label>
-                        <select name="kind" id="kind">
-                            <option value="none">No value</option>
-                            <option value="Bug">Bug</option>
-                            <option value="Enhancement">Enhancement</option>
-                            <option value="Task">Task</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <div>
-                    <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Post</button>
-                    <ul class="pull-left list-inline">
-                        <li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li>
-                        <li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li>
-                        <li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li>
-                    </ul>
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Save</button>
                 </div>
             </div>
         </div>

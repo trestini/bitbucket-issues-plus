@@ -11,8 +11,6 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         $('#btnShow').toggle();
     });
 
-    $('')
-
     $('#go-auth').click(function (e) {
         e.preventDefault();
         var hash = btoa($('#username').val() + ':' + $('#password').val());
