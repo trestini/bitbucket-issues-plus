@@ -24,6 +24,7 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
             success : function (data, status, xhr) {
                 session.basicAuth = { 'Authorization' : 'Basic ' + hash }
                 session.user = data.user;
+                session.repositories = data.repositories;
 
                 sessionStorage['bitbucket-issues-plus_session'] = JSON.stringify(session);
 
@@ -31,10 +32,18 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
                 $('#issue_count').html(data.length);
                 $('#avatar').attr('src', session.user.avatar);
 
+                var repos = "";
+                for( var i in session.repositories ){
+                    var repo = session.repositories[i];
+                    repos += '<li><a href="javascript:selectRepo(\'' + repo.slug + '\')">' + repo.name + '</a></li>'
+                }
+
+                $('#repos').html(repos);
+
                 $('#form').hide();
                 $('#mainnav').show();
 
-                refreshTable();
+                //refreshTable();
             },
             error : function (err) {
                 console.error(err);
@@ -60,9 +69,14 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
 
 });
 
+function selectRepo(repo){
+    session.selectedRepo = repo;
+    refreshTable();
+}
+
 function refreshTable(){
     $.ajax({
-        url: 'https://api.bitbucket.org/1.0/repositories/trestini/vlote/issues',
+        url: 'https://api.bitbucket.org/1.0/repositories/' + session.user.username + '/' + session.selectedRepo + '/issues',
         method : 'GET',
         headers: session.basicAuth,
         success : function (data, status, xhr) {
