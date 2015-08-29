@@ -11,6 +11,11 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         $('#btnShow').toggle();
     });
 
+    $('#logout').click(function () {
+        sessionStorage['bitbucket-issues-plus_session'] = undefined;
+        location.reload();
+    });
+
     $('#go-auth').click(function (e) {
         e.preventDefault();
         var hash = btoa($('#username').val() + ':' + $('#password').val());
