@@ -60,6 +60,14 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         $('#issue_count').html('N/A');
         $('#avatar').attr('src', session.user.avatar);
 
+        var repos = "";
+        for( var i in session.repositories ){
+            var repo = session.repositories[i];
+            repos += '<li><a href="javascript:selectRepo(\'' + repo.slug + '\')">' + repo.name + '</a></li>'
+        }
+
+        $('#repos').html(repos);
+
         $('#form').hide();
         $('#mainnav').show();
 
