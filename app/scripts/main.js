@@ -117,7 +117,7 @@ function refreshTable(){
 
                 table +=
                     '<tr data-id="' + issue.local_id + '" class="clickable">' +
-                    '<td><i class="' + priorityIcon + '"></i></td>' +
+                    '<td><i class="' + priorityIcon + '" style="font-size:0.8em"></i></td>' +
                     '<td>' + issue.title + '</td>' +
                     '<td>' + issue.metadata.kind + '</td>' +
                     '<td>' + issue.status + '</td>' +
