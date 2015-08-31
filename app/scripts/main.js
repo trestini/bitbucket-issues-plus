@@ -71,7 +71,10 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         $('#form').hide();
         $('#mainnav').show();
 
-        refreshTable();
+        if( session.selectedRepo !== undefined ){
+            refreshTable();
+        }
+
     }
 
     $('#edit').click(function () {
