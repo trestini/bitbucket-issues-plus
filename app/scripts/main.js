@@ -55,11 +55,8 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
     });
 
     if( sessionStorage['bitbucket-issues-plus_session'] !== undefined ){
-        console.log(sessionStorage['bitbucket-issues-plus_session']);
         session = JSON.parse(sessionStorage['bitbucket-issues-plus_session']);
         $('#display_name').html(session.user.display_name);
-        $('#issue_count').html('N/A');
-        $('#avatar').attr('src', session.user.avatar);
 
         var repos = "";
         for( var i in session.repositories ){
@@ -139,6 +136,16 @@ function refreshTable(){
 
             });
 
+        },
+        error : function (xhr, status, error) {
+            var errMsg = JSON.parse(xhr.responseText);
+
+            var alert = '<div class="alert alert-danger">' +
+                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+            '<span>' + errMsg.error.message + '</span></div>';
+
+            $('#message')
+                .html(alert);
         }
     });
 
