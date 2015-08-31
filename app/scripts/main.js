@@ -55,6 +55,7 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
     });
 
     if( sessionStorage['bitbucket-issues-plus_session'] !== undefined ){
+        console.log(sessionStorage['bitbucket-issues-plus_session']);
         session = JSON.parse(sessionStorage['bitbucket-issues-plus_session']);
         $('#display_name').html(session.user.display_name);
         $('#issue_count').html('N/A');
