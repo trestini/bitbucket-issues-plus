@@ -116,12 +116,29 @@ function refreshTable(){
                         break;
                 }
 
+                var statusLabel = '<span class="label ';
+                switch (issue.status){
+                    case "new":
+                        statusLabel += 'label-info">';
+                        break;
+                    case "open":
+                        statusLabel += 'label-danger">';
+                        break;
+                    case "resolved":
+                        statusLabel += 'label-success">';
+                        break;
+                    default:
+                        statusLabel += 'label-default">';
+                        break;
+                }
+                statusLabel += issue.status.toUpperCase() + '</span>';
+
                 table +=
                     '<tr data-id="' + issue.local_id + '" class="clickable">' +
                     '<td><i class="' + priorityIcon + '" style="font-size:0.8em"></i></td>' +
                     '<td>' + issue.title + '</td>' +
                     '<td>' + issue.metadata.kind + '</td>' +
-                    '<td>' + issue.status + '</td>' +
+                    '<td>' + statusLabel + '</td>' +
                     '<td>' + issue.metadata.milestone + '</td>' +
                     '</tr>\n';
             }
