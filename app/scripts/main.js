@@ -1,7 +1,8 @@
 var session = {};
 
-$(document).ready(function(){/* off-canvas sidebar toggle */
+$(document).ready(function(){
 
+    /* off-canvas sidebar toggle */
     $('[data-toggle=offcanvas]').click(function() {
         $(this).toggleClass('visible-xs text-center');
         $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
@@ -87,83 +88,85 @@ function selectRepo(repo){
 }
 
 function refreshTable(){
-    $.ajax({
-        url: 'https://api.bitbucket.org/1.0/repositories/' + session.user.username + '/' + session.selectedRepo + '/issues',
-        method : 'GET',
-        headers: session.basicAuth,
-        success : function (data, status, xhr) {
-            var table = "";
-            for( var i in data.issues ){
-                var issue = data.issues[i];
+    if( session.user.username != undefined && session.selectedRepo != undefined ){
+        $.ajax({
+            url: 'https://api.bitbucket.org/1.0/repositories/' + session.user.username + '/' + session.selectedRepo + '/issues',
+            method : 'GET',
+            headers: session.basicAuth,
+            success : function (data, status, xhr) {
+                var table = "";
+                for( var i in data.issues ){
+                    var issue = data.issues[i];
 
-                var priorityIcon = "glyphicon ";
+                    var priorityIcon = "glyphicon ";
 
-                switch (issue.priority){
-                    case "trivial":
-                        priorityIcon += "glyphicon-thumbs-up text-color-black";
-                        break;
-                    case "minor":
-                        priorityIcon += "glyphicon-arrow-down text-color-black";
-                        break;
-                    case "major":
-                        priorityIcon += "glyphicon-arrow-up text-color-black";
-                        break;
-                    case "critical":
-                        priorityIcon += "glyphicon-warning-sign text-color-yellow";
-                        break;
-                    case "blocker":
-                        priorityIcon += "glyphicon-ban-circle text-color-red";
-                        break;
+                    switch (issue.priority){
+                        case "trivial":
+                            priorityIcon += "glyphicon-thumbs-up text-color-black";
+                            break;
+                        case "minor":
+                            priorityIcon += "glyphicon-arrow-down text-color-black";
+                            break;
+                        case "major":
+                            priorityIcon += "glyphicon-arrow-up text-color-black";
+                            break;
+                        case "critical":
+                            priorityIcon += "glyphicon-warning-sign text-color-yellow";
+                            break;
+                        case "blocker":
+                            priorityIcon += "glyphicon-ban-circle text-color-red";
+                            break;
+                    }
+
+                    var statusLabel = '<span class="label ';
+                    switch (issue.status){
+                        case "new":
+                            statusLabel += 'label-info">';
+                            break;
+                        case "open":
+                            statusLabel += 'label-danger">';
+                            break;
+                        case "resolved":
+                            statusLabel += 'label-success">';
+                            break;
+                        default:
+                            statusLabel += 'label-default">';
+                            break;
+                    }
+                    statusLabel += issue.status.toUpperCase() + '</span>';
+
+                    table +=
+                        '<tr data-id="' + issue.local_id + '" class="clickable">' +
+                        '<td><i class="' + priorityIcon + '" style="font-size:0.8em"></i></td>' +
+                        '<td>' + issue.title + '</td>' +
+                        '<td>' + issue.metadata.kind + '</td>' +
+                        '<td>' + statusLabel + '</td>' +
+                        '<td>' + issue.metadata.milestone + '</td>' +
+                        '</tr>\n';
                 }
 
-                var statusLabel = '<span class="label ';
-                switch (issue.status){
-                    case "new":
-                        statusLabel += 'label-info">';
-                        break;
-                    case "open":
-                        statusLabel += 'label-danger">';
-                        break;
-                    case "resolved":
-                        statusLabel += 'label-success">';
-                        break;
-                    default:
-                        statusLabel += 'label-default">';
-                        break;
-                }
-                statusLabel += issue.status.toUpperCase() + '</span>';
+                $('#issues-table tbody').html(table);
 
-                table +=
-                    '<tr data-id="' + issue.local_id + '" class="clickable">' +
-                    '<td><i class="' + priorityIcon + '" style="font-size:0.8em"></i></td>' +
-                    '<td>' + issue.title + '</td>' +
-                    '<td>' + issue.metadata.kind + '</td>' +
-                    '<td>' + statusLabel + '</td>' +
-                    '<td>' + issue.metadata.milestone + '</td>' +
-                    '</tr>\n';
+                $('tr.clickable').click(function () {
+                    var tr = $(this);
+                    var isSelected = tr.attr('selected');
+                    tr.css('background-color', (isSelected ? '' : '#d1fbff') );
+                    tr.attr('selected', !isSelected);
+
+                });
+
+            },
+            error : function (xhr, status, error) {
+                var errMsg = JSON.parse(xhr.responseText);
+
+                var alert = '<div class="alert alert-danger">' +
+                    '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                    '<span>' + errMsg.error.message + '</span></div>';
+
+                $('#message')
+                    .html(alert);
             }
-
-            $('#issues-table tbody').html(table);
-
-            $('tr.clickable').click(function () {
-                var tr = $(this);
-                var isSelected = tr.attr('selected');
-                tr.css('background-color', (isSelected ? '' : '#d1fbff') );
-                tr.attr('selected', !isSelected);
-
-            });
-
-        },
-        error : function (xhr, status, error) {
-            var errMsg = JSON.parse(xhr.responseText);
-
-            var alert = '<div class="alert alert-danger">' +
-                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            '<span>' + errMsg.error.message + '</span></div>';
-
-            $('#message')
-                .html(alert);
-        }
-    });
+        });
+    }
 
 }
